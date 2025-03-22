@@ -4,10 +4,9 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { LocalStrategy } from './utils/local.strategy';
-import { JwtStrategy } from './utils/jwt.strategy';
 import { AuthController } from './auth.controller';
 import { ConfigService } from '@nestjs/config';
+import { JwtStrategy, LocalStrategy } from './utils';
 
 @Module({
   imports: [
