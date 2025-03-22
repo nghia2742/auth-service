@@ -6,6 +6,6 @@ export class LoginDto {
     username: string;
 
     @IsString()
-    pass: string;
+    password: string;
 
 }
