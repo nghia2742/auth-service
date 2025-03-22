@@ -1,7 +1,16 @@
-// This should be a real class/interface representing a user entity
-export type User = {
-    id: string,
-    username: string,
-    password: string,
-    role: string
-};
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  username: string;
+
+  @Column()
+  password: string;
+
+  @Column()
+  role: string;
+}
