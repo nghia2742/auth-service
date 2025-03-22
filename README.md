@@ -21,20 +21,22 @@ A robust authentication boilerplate built with **NestJS**, featuring:
 
 ## 🚀 Project Setup
 
-### 1️⃣ Install Dependencies
+### 1️⃣ Install Dependencies 📦
 ```bash
 $ yarn install
 ```
 
-### 2️⃣ Run PostgreSQL (Using Git bash)
+### 2️⃣ Run PostgreSQL (Using Git bash 🐧)
 ```bash
 $ yarn start:postgres
 ```
 
-### 3️⃣ Create `.env` File
+### 3️⃣ Create `.env` File ⚙️
 Create a `.env` file in the project root and add the following environment variables:
 
 ```env
+NODE_ENV=development
+
 # Database configuration
 DB_HOST=localhost
 DB_PORT=5432
@@ -68,6 +70,3 @@ $ yarn run start:dev
 ```bash
 $ yarn run start:prod
 ```
-
-## 📜 License
-This project is licensed under the **MIT License**.

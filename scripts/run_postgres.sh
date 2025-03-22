@@ -9,7 +9,7 @@ if [ "$(docker ps -a -q -f name=$CONTAINER_NAME)" ]; then
     docker start $CONTAINER_NAME
 else
     echo "Creating and running new PostgreSQL container..."
-    docker run --name $CONTAINER_NAME -e POSTGRES_PASSWORD=postgres -d postgres
+    docker run --name $CONTAINER_NAME -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 postgres
 fi
 
 echo "PostgreSQL is running!"

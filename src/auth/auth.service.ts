@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { LoginPayload, LoginResponse } from './types';
 import { authMessage } from './constants';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
   ) { }
 
   async signIn(username: string, pass: string): Promise<LoginResponse> {
-    const user = this.usersService.findOne(username);
+    const user = await this.usersService.findOne(username);
     if (user?.password !== pass) {
       throw new UnauthorizedException(authMessage.authentication_failed);
     }
@@ -32,8 +33,8 @@ export class AuthService {
     return user;
   }
 
-  validateUser(username: string, pass: string): any {
-    const user = this.usersService.findOne(username);
+  async validateUser(username: string, pass: string): Promise<Omit<User, 'password'> | null> {
+    const user = await this.usersService.findOne(username);
     if (user && user.password === pass) {
       const { password, ...result } = user;
       return result;
