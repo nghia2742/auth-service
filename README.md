@@ -26,9 +26,9 @@ A robust authentication boilerplate built with **NestJS**, featuring:
 $ yarn install
 ```
 
-### 2️⃣ Pull and Run PostgreSQL Image from DockerHub
+### 2️⃣ Run PostgreSQL (Using Git bash)
 ```bash
-$ docker-compose up -d
+$ yarn start:postgres
 ```
 
 ### 3️⃣ Create `.env` File
