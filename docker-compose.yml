@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  my-app:
+    image: my-nest-app:latest
+    container_name: nestjs-auth-app
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - database
+  
+  database:
+    image: postgres:latest
+    container_name: postgres-db
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=database
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
