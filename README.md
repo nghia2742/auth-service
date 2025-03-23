@@ -56,17 +56,12 @@ GOOGLE_AUTH_CALLBACK_URL=your_callback_url
 
 ## 🔥 Run the Project
 
-### Development Mode
+### Development Mode (Watch Mode)
 ```bash
-$ yarn run start
-```
-
-### Watch Mode (Hot Reloading)
-```bash
-$ yarn run start:dev
+$ yarn start:dev
 ```
 
 ### Production Mode
 ```bash
-$ yarn run start:prod
+$ yarn start:prod
 ```
