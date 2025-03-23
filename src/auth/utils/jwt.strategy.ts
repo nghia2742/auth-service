@@ -9,8 +9,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private configService: ConfigService
   ) {
-    const secretOrKey = configService.get<string>('JWT_SECRET_PHRASE')
-    if (!secretOrKey) throw new Error("JWT_SECRET_PHRASE should be defined");
+    const secretOrKey = configService.get<string>('JWT_SECRET_PHRASE', '')
+    // if (!secretOrKey) throw new Error("JWT_SECRET_PHRASE should be defined");
 
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
