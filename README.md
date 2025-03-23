@@ -38,7 +38,7 @@ Create a `.env` file in the project root and add the following environment varia
 NODE_ENV=development
 
 # Database configuration
-DB_HOST=localhost
+DB_HOST=database # This value only need when running with Docker 
 DB_PORT=5432
 DB_USER=your_username
 DB_PASS=your_password
@@ -56,17 +56,12 @@ GOOGLE_AUTH_CALLBACK_URL=your_callback_url
 
 ## 🔥 Run the Project
 
-### Development Mode
+### Development Mode (Watch Mode)
 ```bash
-$ yarn run start
-```
-
-### Watch Mode (Hot Reloading)
-```bash
-$ yarn run start:dev
+$ yarn start:dev
 ```
 
 ### Production Mode
 ```bash
-$ yarn run start:prod
+$ yarn start:prod
 ```
