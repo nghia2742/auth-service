@@ -1,44 +1,40 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import { LoginPayload, LoginResponse } from './types';
-import { authMessage } from './constants';
-import { User } from 'src/users/entities/user.entity';
+import { comparePassword } from './utils/hash.util';
+import { CreateUserDto } from 'src/users/dto/createUser.dto';
+import { LoginResponse } from './types';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) { }
 
-  async signIn(username: string, pass: string): Promise<LoginResponse> {
-    const user = await this.usersService.findOne(username);
-    if (user?.password !== pass) {
-      throw new UnauthorizedException(authMessage.authentication_failed);
-    }
-
-    const payload = {
-      username: user.username,
-      role: user.role,
-    };
-
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
-  }
-
-  getProfile(user: LoginPayload) {
+  async getProfile(email: string) {
+    const user = await this.usersService.findOne({ email });
     return user;
   }
 
-  async validateUser(username: string, pass: string): Promise<Omit<User, 'password'> | null> {
-    const user = await this.usersService.findOne(username);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
+  async validateUser(username: string, password: string): Promise<LoginResponse> {
+    const user = await this.usersService.findOne({ username });
+    if (!user) {
+      throw new UnauthorizedException('User not found!');
     }
-    return null;
+    const validUser = await comparePassword(password, user.password ?? "")
+    if (!validUser) {
+      throw new UnauthorizedException('Failed to login!');
+    }
+    const payload = { email: user.email, name: user.name };
+    return { access_token: await this.jwtService.signAsync(payload) };
+  }
+
+  async validateUserByGoogle(userDetails: CreateUserDto): Promise<LoginResponse> {
+    const user = await this.usersService.findOrCreate(userDetails);
+
+    const payload = { email: user.email, name: user.name };
+
+    return { access_token: await this.jwtService.signAsync(payload) };
   }
 }
